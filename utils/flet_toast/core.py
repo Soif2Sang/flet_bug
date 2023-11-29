@@ -7,18 +7,8 @@
 # TODO IMPORTING NECESSARY LIBRARYIES
 ########################################################################################################################
 # LIB python libraryies
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Iterable,
-    List,
-    Literal,
-    Optional,
-    Set,
-    Tuple,
-    Union,
-)
+from typing import (Any, Callable, Dict, Iterable, List, Literal, Optional,
+                    Set, Tuple, Union)
 
 # LIB => flet libraryies
 import flet as ft

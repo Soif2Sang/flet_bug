@@ -10,10 +10,7 @@ from flet_core import ButtonStyle, RoundedRectangleBorder
 # from tiles.tile_upgrade import TileUpgrade
 from utils.constants import BREZILIAN
 from utils.flet_translations import translate
-from utils.functions import (
-    get_dic_instances,
-    get_dic_instances_ld,
-)
+from utils.functions import get_dic_instances, get_dic_instances_ld
 from utils.singletons import EmulatorSingleton, FileSingleton, LinkSingleton
 from views.tiles.tile import Tile
 

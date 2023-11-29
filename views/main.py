@@ -1,11 +1,11 @@
 import flet as ft
 
-from views.tiles.handler.logging_handler import Logger, LoggerUpgrade
-from views.tiles.handler.tile_handler_u import TileManagerUpgrade
 from utils.constants import VERSION, toasts_history
 from utils.flet_toast.core import Position
 from utils.flet_toast.toasts_flexible import ToastAction, ToastsFlexible
+from views.tiles.handler.logging_handler import Logger, LoggerUpgrade
 from views.tiles.handler.tile_handler import TileHandler
+from views.tiles.handler.tile_handler_u import TileManagerUpgrade
 
 color_bank = {1: "#3b8ed0", 2: "#ba4543", 3: "#dec433"}
 

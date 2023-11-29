@@ -19,17 +19,12 @@ from flet_core import ContainerTapEvent, ControlEvent
 from flet_core.animation import Animation, AnimationCurve
 from flet_core.transform import Offset, Rotate, Scale
 from flet_core.types import MainAxisAlignment, MaterialState
-
 # LIB => squardot-utils-standard libraryies
 from utils_standard.modules.utils import GenerateID, time_sleep_accuracy
 
 # LIB => from libraryies
-from utils.flet_toast.core import (
-    OverlayPageManger,
-    Position,
-    SetPosition,
-    set_color_balance,
-)
+from utils.flet_toast.core import (OverlayPageManger, Position, SetPosition,
+                                   set_color_balance)
 
 
 ########################################################################################################################

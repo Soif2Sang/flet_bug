@@ -1,60 +1,16 @@
 # coding=UTF-8
-import json
-import os
-import subprocess
-import sys
-import traceback
-from time import sleep
 
 import flet as ft
 from flet_route import Routing, path
 
-import views.tiles.tile
-from utils.Components.AnimatedCard import AnimatedCard
-from utils.Components.filescan import generate_filescan
-from utils.Components.maintenance import generate_maintenance
-from utils.constants import BREZILIAN, toasts_history
-from utils.functions import FileSingleton, getchecksum
-from views.login.login import LoginUI
-
+from utils.constants import toasts_history
 from utils.flet_toast.core import Position
 from utils.flet_toast.toasts_flexible import ToastsFlexible
-from utils.singletons import ApiSingleton, EmulatorSingleton, LinkSingleton
+from utils.functions import FileSingleton
 from views.city_layout import viewCityLayout
-from views.config_path import find_file_in_all_drives
+from views.login.login import LoginUI
 from views.main import Main
 from views.profile_settings import viewProfileSettings
-
-try:
-    1
-except Exception as e:
-    exc_type, exc_value, exc_traceback = sys.exc_info()
-    traceback_list = traceback.format_exception(exc_type, exc_value, exc_traceback)
-    traceback_str = "".join(traceback_list)
-
-    def handleError(page: ft.Page):
-        page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-        page.vertical_alignment = ft.MainAxisAlignment.CENTER
-        page.add(
-            ft.Text("An error occurred, a log message have been sent to the developer")
-        )
-        page.add(ft.Text(value=traceback_str, color="red"))
-        page.update()
-
-    keyauthapp = selfApi(
-        name="Rokbd" if not BREZILIAN else "RokbdBR",
-        ownerid="7oofxdj8uH",
-        secret="a968396e3fdfff2a2eaf14516fb283b7b7013e19cf392c863c90e0d8c41d9be0"
-        if not BREZILIAN
-        else "6d15b7ee5e7312238105efd4b648535835dc1ce5f4250fe2dc82910db43147b6",
-        version="2.0",
-        hash_to_check=getchecksum(),
-    )
-
-    keyauthapp.log(traceback_str)
-
-    ft.app(target=handleError)
-    exit()
 
 fileSingleton = FileSingleton()
 
