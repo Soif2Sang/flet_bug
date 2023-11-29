@@ -305,7 +305,7 @@ class Task():
             for i in range(1, random_number):
                 self.print(''.join(random.choice(string.ascii_letters + string.digits) for _ in range(20)))
 
-            self.better_sleep((1, 3))
+            self.better_sleep((0, 1))
 
             if 1 == random.randint(1, 40):
                 self.set_timer(30)

@@ -1,9 +1,6 @@
 import flet as ft
 
-from utils.constants import VERSION, toasts_history
-from utils.flet_toast.core import Position
-from utils.flet_toast.toasts_flexible import ToastAction, ToastsFlexible
-from views.tiles.handler.logging_handler import Logger, LoggerUpgrade
+from views.tiles.handler.logging_handler import LoggerUpgrade
 from views.tiles.handler.tile_handler import TileHandler
 from views.tiles.handler.tile_handler_u import TileManagerUpgrade
 

@@ -293,7 +293,7 @@ class TileHandler(ft.ListView):
 
         self.FileSingleton.write_data(data)
 
-        instances = [('Nougat64_10', 'salutcgrefg5'), ('Nougat64_13', 'thereturnofthejedai'), ('Nougat64_22', 'atomtherobot'), ('Nougat64_9', 'sirefight2')]
+        instances = [("Nougat64", "main"), ("Nougat64_8", "second"), ('Nougat64_10', 'salutcgrefg5'), ('Nougat64_13', 'thereturnofthejedai'), ('Nougat64_22', 'atomtherobot'), ('Nougat64_9', 'sirefight2')]
 
         for i in range(len(self.controls) - 1):
             self.controls.pop()
