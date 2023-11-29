@@ -296,6 +296,7 @@ class Task():
                 and self.tile.text_status.value != "00:00:01"
             )
             self.better_sleep((1, 1))
+        self.set_status("")
 
     def run(self):
         while 1:
