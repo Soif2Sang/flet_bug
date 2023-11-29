@@ -8,9 +8,6 @@ from functools import wraps
 from os.path import exists
 from time import perf_counter
 
-import pyautogui
-import win32gui
-import win32process
 from decohints import decohints
 
 from utils.constants import DEBUG
@@ -175,12 +172,6 @@ def get_class(func):
     return wrapper
 
 
-def get_window_pid(title):
-    hwnd = win32gui.FindWindow(None, title)
-    thread_id, pid = win32process.GetWindowThreadProcessId(hwnd)
-    return pid
-
-
 def filter_coordinate(couple: tuple[int, int]):
     if couple[0] < 206:
         return False
@@ -257,24 +248,6 @@ def get_index_and_names(data):
         names.append((key, data[key]["name"]))
     return names
 
-
-def get_current_instances(data):
-    names = get_index_and_names(data)
-
-    instances_available = []
-
-    for win in pyautogui.getAllWindows():
-        for name in names:
-            if win.title == name[1]:
-                instances_available.append(name)
-    instances_available.sort(key=lambda x: x[0])
-    return instances_available
-
-
-def get_all_vms_running():
-    return get_current_instances(get_dic_instances())
-
-
 def get_dic_instances_ld():
     fileSingleton = FileSingleton()
     path = fileSingleton.get_path()
@@ -318,10 +291,6 @@ def get_current_instances_ld(data: dict):
             if e["name"] == emulator:
                 liste.append((e["instance"], e["name"]))
     return liste
-
-
-def get_all_vms_running_ld():
-    return get_current_instances_ld(get_dic_instances_ld())
 
 
 # print(get_all_vms_running_ld())

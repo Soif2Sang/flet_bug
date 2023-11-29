@@ -10,7 +10,7 @@ import flet as ft
 
 # from tasks.Task import Task
 # from tasks.Task_runner import TaskRunner
-from utils.functions import FileSingleton, get_all_vms_running, get_all_vms_running_ld, current_time, get_name
+from utils.functions import FileSingleton, current_time, get_name
 from utils.singletons import EmulatorSingleton
 from views.tiles.handler.config_handler import Frame
 
@@ -26,6 +26,7 @@ class ConfigOverrider(ft.PopupMenuButton):
         self.init()
 
     def init(self):
+        return
         self.items.append(ft.PopupMenuItem(text="Export Config"))
         self.items.append(ft.PopupMenuItem())
         emulator = EmulatorSingleton().getEmulator()
