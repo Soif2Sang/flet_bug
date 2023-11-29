@@ -6,7 +6,6 @@ from time import sleep
 
 import flet as ft
 
-from utils.auth import selfApi, update_user_info
 from utils.constants import BREZILIAN
 from utils.flet_translations import translate
 from utils.functions import FileSingleton, getchecksum

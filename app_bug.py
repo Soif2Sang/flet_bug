@@ -10,7 +10,6 @@ import flet as ft
 from flet_route import Routing, path
 
 import views.tiles.tile
-from utils.auth import selfApi
 from utils.Components.AnimatedCard import AnimatedCard
 from utils.Components.filescan import generate_filescan
 from utils.Components.maintenance import generate_maintenance
