@@ -17,7 +17,7 @@
     "name": "main",
     "host": "127.0.0.1",
     "port": 5555,
-    "API_KEY": "4805a29997857b110ef26530c7f39db1",
+    "API_KEY": "",
     "loop_task": true,
     "time_to_wait_loop1": 0,
     "time_to_wait_loop2": 30,

@@ -1,4 +1,3 @@
-import copy
 import random
 import string
 import sys
@@ -8,95 +7,22 @@ from time import sleep
 
 import flet as ft
 
-# from tasks.Task import Task
-# from tasks.Task_runner import TaskRunner
-from utils.functions import FileSingleton, current_time, get_name
-from utils.singletons import EmulatorSingleton
+from utils.functions import current_time, get_name
 from views.tiles.handler.config_handler import Frame
-
-
-class ConfigOverrider(ft.PopupMenuButton):
-    def __init__(self, page, index, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fileSingleton = FileSingleton()
-        self.index = index
-        self.initial_page = page
-        self.config = self.fileSingleton.get_data()[self.index]
-        self.icon = ft.icons.FILE_UPLOAD_OUTLINED
-        self.init()
-
-    def init(self):
-        return
-        self.items.append(ft.PopupMenuItem(text="Export Config"))
-        self.items.append(ft.PopupMenuItem())
-        emulator = EmulatorSingleton().getEmulator()
-
-        if emulator == "bluestacks":
-            vms = get_all_vms_running()
-        else:
-            vms = get_all_vms_running_ld()
-
-        for vm in vms:
-            if str(vm[0]) != self.index:
-                self.items.append(
-                    ft.PopupMenuItem(
-                        text=vm[1], on_click=self.override_settings, data=vm[0]
-                    )
-                )
-
-    def update_config(self):
-        self.config = self.fileSingleton.get_data()[self.index]
-
-    def refresh(self):
-        self.items = []
-        self.init()
-        self.initial_page.update()
-
-    def override_settings(self, e):
-        self.update_config()
-        data = self.fileSingleton.get_data()
-
-        instance = data[str(e.control.data)]["instance"]
-        name = data[str(e.control.data)]["name"]
-        host = data[str(e.control.data)]["host"]
-        port = data[str(e.control.data)]["port"]
-
-        data[str(e.control.data)] = copy.deepcopy(self.config)
-
-        data[str(e.control.data)]["instance"] = instance
-        data[str(e.control.data)]["name"] = name
-        data[str(e.control.data)]["host"] = host
-        data[str(e.control.data)]["port"] = port
-
-        self.fileSingleton.write_data(data)
-
-        if str(e.control.data) in self.initial_page.frames:
-            for tab in self.initial_page.frames[str(e.control.data)].settings.tabs:
-                tab.content.content.controls = []
-                tab.content.init()
-        self.initial_page.update()
 
 
 class Tile(ft.Row):
     def __init__(self, page, number, **kwargs):
         super().__init__(**kwargs)
-        self.FileSingleton = FileSingleton()
-        data = self.FileSingleton.get_data()
         self.number = number
         self.initial_page = page
         self.tasks_process = None
         self.paused = False
         self.stopped = False
 
-        # self.main_task = Task(self)
-        # self.runner = TaskRunner(self.main_task, self)
-
         self.runner = Task(self)
 
-        if self.initial_page.UPGRADE:
-            self.tasks_process = threading.Thread(target=self.runner.run_update)
-        else:
-            self.tasks_process = threading.Thread(target=self.runner.run)
+        self.tasks_process = threading.Thread(target=self.runner.run)
 
         self.button_select = ft.IconButton(
             icon=ft.icons.SETTINGS,
@@ -110,8 +36,7 @@ class Tile(ft.Row):
             icon=ft.icons.HIGHLIGHT_REMOVE_ROUNDED, disabled=True, on_click=self.stop
         )
 
-        self.config_overrider = ConfigOverrider(self.initial_page, number)
-        self.text_name = ft.Text(value=data[str(number)]["name"], width=80)
+        self.text_name = ft.Text(value="nothing", width=80)
         self.text_status = ft.Text(value="", width=120)
 
         self.vertical_alignment = ft.CrossAxisAlignment.CENTER
@@ -128,7 +53,6 @@ class Tile(ft.Row):
                         self.text_status,
                     ]
                 ),
-                self.config_overrider,
             ]
         )
 
@@ -164,6 +88,10 @@ class Tile(ft.Row):
         self.button_stop.disabled = True
         self.set_text("")
 
+    def set_text(self, text):
+        self.text_status.value = text
+        self.initial_page.update()
+
     def resume(self, e):
         self.paused = False
 
@@ -188,21 +116,8 @@ class Tile(ft.Row):
 
     def start_tasks(self):
         if not self.tasks_process.is_alive():
-            if self.initial_page.UPGRADE:
-                self.tasks_process = threading.Thread(target=self.runner.run_update)
-            else:
-                self.tasks_process = threading.Thread(target=self.runner.run)
+            self.tasks_process = threading.Thread(target=self.runner.run)
             self.tasks_process.start()
-        else:
-            self.add_text("Task is frozen, you may need to restart the bot.")
-            self.initial_page.generate_toast(
-                "Warning", "Task is frozen, you may need to restart the bot."
-            )
-            print("Task is frozen, you may need to restart the bot.")
-
-    def set_text(self, phrase: str):
-        self.text_status.value = phrase
-        self.initial_page.update()
 
     def get_text(self):
         return self.text_status.value
@@ -228,19 +143,16 @@ class Task():
     def __init__(self, tile):
         self.tile = tile
         self.name = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(20))
-    @get_name
+
     def set_text(self, text, color=None):
         return self.tile.add_text(text, color)
 
-    @get_name
     def set_divider(self):
         return self.tile.add_divider()
 
-    @get_name
     def set_status(self, text):
         return self.tile.set_text(text)
 
-    @get_name
     def debug(self, message):
         print(message)
 

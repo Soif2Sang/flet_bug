@@ -11,7 +11,6 @@ from time import perf_counter
 from decohints import decohints
 
 from utils.constants import DEBUG
-from utils.singletons import FileSingleton
 
 dir = "./"
 
